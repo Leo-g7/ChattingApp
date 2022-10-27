@@ -3,20 +3,13 @@
     <nz-form-item>
       <nz-form-label nzFor="username">Username</nz-form-label>
       <nz-form-control>
-        <!--
-          TODO Ajouter l'input pour username avec le data-binding approprié
-          <input class="ant-input" type="text" name="username" id="username" #username="ngModel">
-         -->
-
+        <input class="ant-input" type="text" name="username" id="username" [(ngModel)]="model.username">
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzFor="password">Mot de passe</nz-form-label>
       <nz-form-control>
-        <!--
-          TODO Ajouter l'input pour password avec le data-binding approprié
-          <input class="ant-input" type="password" name="password" id="password" #password="ngModel">
-         -->
+        <input class="ant-input" type="password" name="password" id="password" [(ngModel)]="model.password">
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
