@@ -29,19 +29,13 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   async submit() {
-    console.log('test')
-    console.log()
-    // TODO  Vérifier que la confirmation de mot de passe correspond au mot de passe
     if (this.form.form.invalid || this.model.password !== this.model.confirmPassword) {
       return;
     }
 
-    // TODO Enregistrer l'utilisateur via le UserService
-    //this.goToLogin();
-  }
+    await this.userService.register(this.model.username, this.model.password)
 
-  validatelength(validateValue: string, min: number, max: number,) {
-    return validateValue.length > min && validateValue.length < max
+    this.goToLogin();
   }
 
   goToLogin() {
