@@ -11,6 +11,7 @@ export class HttpUserCommands extends UserCommands {
   }
 
   register(username: string, password: string): Promise<{ id: string; }> {
+    console.log('test')
     return this.http.post<{ id: string; }>(`${environment.serverBaseUrl}/user`, { username, password }).toPromise();
   }
 
