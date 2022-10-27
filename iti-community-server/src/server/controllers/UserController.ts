@@ -7,7 +7,7 @@ import { authorize, readUserId } from "../config/bearer";
 import { Ignore, validateBody, validateQuery } from "modules/common/validator";
 import { multipart, UploadedFile } from "modules/common/upload";
 import { config } from "server/config/env";
-import {RegisterUserRequest, UpdateUserRequest, UserExistsRequest, UserResult, UserSearchRequest} from "./models/user";
+import { RegisterUserRequest, UpdateUserRequest, UserExistsRequest, UserResult, UserSearchRequest } from "./models/user";
 
 
 @controller("/user")

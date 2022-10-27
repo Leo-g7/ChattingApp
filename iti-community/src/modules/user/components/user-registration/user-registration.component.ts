@@ -29,7 +29,10 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   async submit() {
-    if (this.form.form.invalid || this.model.password !== this.model.confirmPassword) {
+    if (this.form.form.invalid
+      || !this.verifyLength(this.model.username, 3, 40)
+      || !this.verifyLength(this.model.password, 3, 40)
+      || this.model.password !== this.model.confirmPassword) {
       return;
     }
 
@@ -40,5 +43,9 @@ export class UserRegistrationComponent implements OnInit {
 
   goToLogin() {
     this.router.navigate(['/splash/login']);
+  }
+
+  verifyLength(value: string, min: number = 0, max: number = Infinity) {
+    return value.length >= min && value.length <= max
   }
 }
