@@ -8,6 +8,7 @@
           type="text"
           name="username"
           id="username"
+          required
           [(ngModel)]="model.username"
           #username="ngModel"
         />
@@ -30,6 +31,7 @@
           type="password"
           name="password"
           id="password"
+          required
           [(ngModel)]="model.password"
           #password="ngModel"
         />
@@ -52,6 +54,7 @@
           type="password"
           name="confirm-password"
           id="confirm-password"
+          required
           [(ngModel)]="model.confirmPassword"
           #confirm="ngModel"
         />
@@ -70,10 +73,10 @@
           nz-button
           nzType="default"
           [disabled]="
-            f.form.invalid &&
-            isLengthValid(username.value, 3, 40) &&
-            isLengthValid(password.value, 3, 40) &&
-            isConfirmPasswordValid()
+            f.form.invalid ||
+            !isLengthValid(username.value, 3, 40) ||
+            !isLengthValid(password.value, 3, 40) ||
+            !isConfirmPasswordValid()
           "
         >
           S'enregistrer

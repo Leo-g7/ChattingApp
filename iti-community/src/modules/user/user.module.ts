@@ -6,6 +6,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzMessageModule } from "ng-zorro-antd/message";
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { UserWidgetComponent } from './components/user-widget/user-widget.component';
@@ -42,7 +43,8 @@ import { NotificationModule } from '../notification/notification.module';
     NzModalModule,
     NzBadgeModule,
     NzUploadModule,
-    NotificationModule
+    NotificationModule,
+    NzMessageModule
   ]
 })
 export class UserModule { }

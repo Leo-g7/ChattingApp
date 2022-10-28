@@ -8,6 +8,7 @@
           type="text"
           name="username"
           id="username"
+          required
           [(ngModel)]="model.username"
         />
       </nz-form-control>
@@ -20,6 +21,7 @@
           type="password"
           name="password"
           id="password"
+          required
           [(ngModel)]="model.password"
         />
       </nz-form-control>
@@ -41,7 +43,6 @@
   </form>
   <p class="divider">Pas encore enregistré ?</p>
 
-  <!-- TODO Rediriger sur la page de login au clic sur le bouton -->
   <button
     class="register-button"
     nz-button

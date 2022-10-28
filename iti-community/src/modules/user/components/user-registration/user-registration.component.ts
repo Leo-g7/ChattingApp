@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { NzMessageService } from "ng-zorro-antd/message";
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
@@ -23,7 +24,8 @@ export class UserRegistrationComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private nzMessageService: NzMessageService
   ) { }
 
   ngOnInit(): void {
@@ -43,12 +45,16 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   async submit() {
-    await this.exists()
+    try {
+      await this.exists()
 
-    if (this.userExist) return
+      if (this.userExist) return
 
-    await this.userService.register(this.model.username, this.model.password)
-    this.goToLogin();
+      await this.userService.register(this.model.username, this.model.password)
+      this.goToLogin();
+    } catch {
+      this.nzMessageService.error("Une erreur est survenue. Veuillez réessayer plus tard");
+    }
   }
 
   goToLogin() {
