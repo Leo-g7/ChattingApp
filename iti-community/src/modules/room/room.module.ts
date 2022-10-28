@@ -26,11 +26,11 @@ import { RoomSocketService } from './services/room.socket.service';
   exports: [RoomMenuComponent, RoomComponent],
   providers: [{
     provide: RoomCommands,
-    useClass: LocalRoomCommands
+    useClass: HttpRoomCommands
   },
   {
     provide: RoomQueries,
-    useClass: LocalRoomQueries
+    useClass: HttpRoomQueries
   },
     RoomStore,
     RoomService,
