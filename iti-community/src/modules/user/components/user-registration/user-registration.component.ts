@@ -19,6 +19,7 @@ export class UserRegistrationComponent implements OnInit {
   form: NgForm;
 
   model = new UserRegistrationFormModel();
+  userExist: boolean = false
 
   constructor(
     private router: Router,
@@ -28,16 +29,25 @@ export class UserRegistrationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  async exists(): Promise<void> {
+    this.userExist = await this.userService.exist(this.model.username)
+  }
+
+  isConfirmPasswordValid() {
+    return this.model.password === this.model.confirmPassword
+  }
+
+  isLengthValid(value: string, min: number = 0, max: number = Infinity): boolean {
+    if (!value) return false
+    return value.length >= min && value.length <= max
+  }
+
   async submit() {
-    if (this.form.form.invalid
-      || !this.verifyLength(this.model.username, 3, 40)
-      || !this.verifyLength(this.model.password, 3, 40)
-      || this.model.password !== this.model.confirmPassword) {
-      return;
-    }
+    await this.exists()
+
+    if (this.userExist) return
 
     await this.userService.register(this.model.username, this.model.password)
-
     this.goToLogin();
   }
 

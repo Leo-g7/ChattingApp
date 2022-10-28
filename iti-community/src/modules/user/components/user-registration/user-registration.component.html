@@ -1,7 +1,7 @@
 <div class="user-registration">
   <form nz-form nzLayout="vertical" #f="ngForm" (ngSubmit)="submit()">
     <nz-form-item>
-      <nz-form-label nzFor="username">Username</nz-form-label>
+      <nz-form-label nzFor="username">Nom d'utilisateur</nz-form-label>
       <nz-form-control>
         <input
           class="ant-input"
@@ -12,6 +12,15 @@
           #username="ngModel"
         />
       </nz-form-control>
+      <div
+        [hidden]="username.pristine || isLengthValid(username.value, 3, 40)"
+        class="errorMessage"
+      >
+        Veuillez rentrer un nom d'utilisateur entre 3 et 40 caractères
+      </div>
+      <div [hidden]="!userExist" class="errorMessage">
+        Ce nom d'utilisateur est déjà utilisé
+      </div>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzFor="password">Mot de passe</nz-form-label>
@@ -25,6 +34,12 @@
           #password="ngModel"
         />
       </nz-form-control>
+      <div
+        [hidden]="password.pristine || isLengthValid(password.value, 3, 40)"
+        class="errorMessage"
+      >
+        Veuillez rentrer un mot de passe d'utilisateur entre 3 et 40 caractères
+      </div>
     </nz-form-item>
 
     <nz-form-item>
@@ -40,6 +55,12 @@
           [(ngModel)]="model.confirmPassword"
           #confirm="ngModel"
         />
+        <div
+          [hidden]="confirm.pristine || isConfirmPasswordValid()"
+          class="errorMessage"
+        >
+          Vos mots de passe ne correspondent pas
+        </div>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
@@ -48,7 +69,12 @@
           class="register-button"
           nz-button
           nzType="default"
-          [disabled]="f.form.invalid"
+          [disabled]="
+            f.form.invalid &&
+            isLengthValid(username.value, 3, 40) &&
+            isLengthValid(password.value, 3, 40) &&
+            isConfirmPasswordValid()
+          "
         >
           S'enregistrer
         </button>

@@ -13,6 +13,10 @@ export class UserService {
   ) {
   }
 
+  async exist(username: string): Promise<boolean> {
+    return await this.queries.exists(username)
+  }
+
   async register(username: string, password: string): Promise<void> {
     await this.commands.register(username, password);
   }
