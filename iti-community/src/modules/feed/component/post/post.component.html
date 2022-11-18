@@ -1,9 +1,13 @@
 <div class="post">
-  <div class="post-author-name"></div>
+  <div class="post-author-name">
+    <span>{{ post.createdBy.username }}</span>
+  </div>
 
   <!-- TIPS: [ngStyle]="{'background-image': url(...) }" -->
-  <div class="post-author-photo"></div>
-  <div class="post-date"></div>
+  <div class="post-author-photo" [ngStyle]="{ 'background-image': 'url(' + post.createdBy.photoUrl + ')' }"></div>
+  <div class="post-date">
+    {{post.createdAt}}
+  </div>
 
   <!-- TIPS: [ngClass]="{liked: [expression booléenne]}" -->
   <div class="post-user-like">
@@ -11,12 +15,23 @@
   </div>
 
   <p class="post-text">
-    <!-- Afficher le texte du poste uniquement-->
+    {{post.message.text.content}}
   </p>
 
   <!-- Itérer sur les "attachements" du message -->
-  <div class="post-attachements" *ngFor="let element of post.message.attachements">
-    <!-- Utiliser ngIf pour afficher le bon composant en fonction du type d'élément-->
+  <div class="post-attachements" *ngFor="let attachement of post.message.attachements">
+    <div *ngIf="attachement.type === 'image'">
+      <app-post-attachement-image [element]="attachement"></app-post-attachement-image>
+    </div>
+    <div *ngIf="attachement.type === 'video'">
+      <app-post-attachement-video [element]="attachement"></app-post-attachement-video>
+    </div>
+    <div *ngIf="attachement.type === 'audio'">
+      <app-post-attachement-audio [element]="attachement"></app-post-attachement-audio>
+    </div>
+    <div *ngIf="attachement.type === 'youtube'">
+      <app-post-attachement-youtube [element]="attachement"></app-post-attachement-youtube>
+    </div>
   </div>
   <div #anchor></div>
 </div>

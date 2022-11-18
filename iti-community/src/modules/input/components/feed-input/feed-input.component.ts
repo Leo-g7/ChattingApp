@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild, ViewChildren } from '@angular/core';
-import { NzPopoverComponent, NzPopoverDirective } from 'ng-zorro-antd/popover';
+import { NzPopoverDirective } from 'ng-zorro-antd/popover';
+import { FeedSocketService } from 'src/modules/feed/services/feed.socket.service';
+import { PostService } from 'src/modules/feed/services/post.service';
 import { UserService } from 'src/modules/user/services/user.service';
 import { User } from 'src/modules/user/user.model';
 import { MessageSentEventPayload } from '../../input.model';
@@ -10,6 +12,7 @@ import { MessageSentEventPayload } from '../../input.model';
   styleUrls: ['./feed-input.component.less']
 })
 export class FeedInputComponent {
+
   @Output()
   messageSent: EventEmitter<MessageSentEventPayload> = new EventEmitter();
 
@@ -26,15 +29,18 @@ export class FeedInputComponent {
   /**
    * Staging file to upload
    */
-  file: File | null = null;
+  file: File | undefined;
 
   currentMention?: RegExpMatchArray;
 
   supportedTypes = "image/png,image/jpeg,image/gif,image/bmp,image/bmp,video/mpeg,audio/mpeg,audio/x-wav,image/webp";
 
   constructor(
-    private userService: UserService
-  ) { }
+    private userService: UserService,
+    private postService: PostService,
+    private feedSocketService: FeedSocketService
+  ) {
+   }
 
   /**
    * Triggered when the user is selecting a mention in the list.
@@ -78,7 +84,7 @@ export class FeedInputComponent {
    * Close tag event handler. Trigger when the user wants to remove a file.
    */
   onCloseTag() {
-    this.setFile(null);
+    this.setFile(undefined);
   }
 
   /**
@@ -125,9 +131,16 @@ export class FeedInputComponent {
    * Send the input message
    */
   send() {
-    if (!this.message && !this.file) {
+    const roomId = localStorage.getItem('roomId');
+    if (!this.message && !this.file || !roomId) {
+      console.log("error creating post");
       return;
     }
+
+    // this.postService.create(roomId, this.message, this.file);
+
+    this.fireMessageSent();
+    this.clear();
 
     // TODO émettre  l'évènement "messageSent" via la méthode fireMessageSent
     // TODO vider la zone de saise avec la méthode clear
@@ -137,7 +150,7 @@ export class FeedInputComponent {
    * Set an allowed file to send with the input message
    * @param file The file to send with the message
    */
-  setFile(file: File | null) {
+  setFile(file: File | undefined) {
     this.file = file;
   }
 
@@ -145,7 +158,11 @@ export class FeedInputComponent {
    * Emit the "messageSent" event
    */
   fireMessageSent() {
-    // TODO émettre l'évènement "messageSent"
+    this.messageSent.emit({
+      date: new Date(),
+      message: this.message,
+      file: this.file as File
+    });
   }
 
   /**
@@ -153,7 +170,7 @@ export class FeedInputComponent {
    */
   clear() {
     this.message = "";
-    this.setFile(null);
+    this.setFile(undefined);
     this.inputPopover.hide();
   }
 }
