@@ -5,8 +5,8 @@
 
   <!-- TIPS: [ngStyle]="{'background-image': url(...) }" -->
   <div class="post-author-photo" [ngStyle]="{ 'background-image': 'url(' + post.createdBy.photoUrl + ')' }"></div>
-  <div class="post-date">
-    {{post.createdAt}}
+  <div class="post-date" >
+    {{post.createdAt | date: 'medium'}} 
   </div>
 
   <!-- TIPS: [ngClass]="{liked: [expression booléenne]}" -->
