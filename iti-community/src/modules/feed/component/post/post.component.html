@@ -19,18 +19,18 @@
   </p>
 
   <!-- Itérer sur les "attachements" du message -->
-  <div class="post-attachements" *ngFor="let attachement of post.message.attachements">
-    <div *ngIf="attachement.type === 'image'">
-      <app-post-attachement-image [element]="attachement"></app-post-attachement-image>
+  <div class="post-attachements" *ngFor="let element of post.message.attachements">
+    <div *ngIf="element.type === 'image'">
+      <app-post-attachement-image [element]="element"></app-post-attachement-image>
     </div>
-    <div *ngIf="attachement.type === 'video'">
-      <app-post-attachement-video [element]="attachement"></app-post-attachement-video>
+    <div *ngIf="element.type === 'video'">
+      <app-post-attachement-video [element]="element"></app-post-attachement-video>
     </div>
-    <div *ngIf="attachement.type === 'audio'">
-      <app-post-attachement-audio [element]="attachement"></app-post-attachement-audio>
+    <div *ngIf="element.type === 'audio'">
+      <app-post-attachement-audio [element]="element"></app-post-attachement-audio>
     </div>
-    <div *ngIf="attachement.type === 'youtube'">
-      <app-post-attachement-youtube [element]="attachement"></app-post-attachement-youtube>
+    <div *ngIf="element.type === 'youtube'">
+      <app-post-attachement-youtube [element]="element"></app-post-attachement-youtube>
     </div>
   </div>
   <div #anchor></div>

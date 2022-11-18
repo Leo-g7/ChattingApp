@@ -11,6 +11,7 @@ export class FeedSocketService {
   }
 
   onNewPost(roomId: string, callback: (post: Post) => any) {
+    console.log(this.postSubscription);
     if (this.postSubscription) {
       this.socketToic.unsubscribe(`room_${this.postSubscription[0]}_posts`, this.postSubscription[1]);
     }

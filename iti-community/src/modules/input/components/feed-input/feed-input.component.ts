@@ -33,7 +33,7 @@ export class FeedInputComponent {
 
   currentMention?: RegExpMatchArray;
 
-  supportedTypes = "image/png,image/jpeg,image/gif,image/bmp,image/bmp,video/mpeg,audio/mpeg,audio/x-wav,image/webp";
+  supportedTypes = "image/png,image/jpeg,image/gif,image/bmp,image/bmp,video/mpeg,video/mp4,audio/mpeg,audio/x-wav,image/webp";
 
   constructor(
     private userService: UserService,
@@ -142,8 +142,6 @@ export class FeedInputComponent {
     this.fireMessageSent();
     this.clear();
 
-    // TODO émettre  l'évènement "messageSent" via la méthode fireMessageSent
-    // TODO vider la zone de saise avec la méthode clear
   }
 
   /**

@@ -10,7 +10,10 @@ export class PostAttachementImageComponent implements OnInit {
   @Input()
   element: MessageImageElement;
 
-  constructor() { }
+  constructor() { 
+    console.log("hello");
+    console.log(this.element);
+  }
 
   ngOnInit(): void {
   }
