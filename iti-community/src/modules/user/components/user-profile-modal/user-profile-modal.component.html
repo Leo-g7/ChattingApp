@@ -1,18 +1,40 @@
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Profil" (nzOnCancel)="onCancel()" (nzOnOk)="onOk()">
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Profil"
+  (nzOnCancel)="onCancel()"
+  (nzOnOk)="onOk()"
+>
   <div *nzModalContent>
-    <nz-upload [nzBeforeUpload]="onFileUpload" [nzAccept]="supportedTypes" class="profile-uploader">
+    <nz-upload
+      [nzBeforeUpload]="onFileUpload"
+      [nzAccept]="supportedTypes"
+      class="profile-uploader"
+    >
       <div class="profil-picture">
         <i nz-icon nzType="edit"></i>
-        <img [src]="photoUrl">
+        <img [src]="photoUrl" />
       </div>
     </nz-upload>
     <form nz-form nzLayout="vertical" #f="ngForm">
       <nz-form-item>
         <nz-form-label nzFor="name">Username</nz-form-label>
         <nz-form-control nzErrorTip="Nom obligatoire">
-          <input class="ant-input" type="text" name="username" id="username" required [(ngModel)]="model.username"
-            #nom="ngModel">
+          <input
+            class="ant-input"
+            type="text"
+            name="username"
+            id="username"
+            required
+            [(ngModel)]="model.username"
+            #username="ngModel"
+          />
         </nz-form-control>
+        <div
+          [hidden]="username.pristine || isLengthValid(username.value, 3, 40)"
+          class="errorMessage"
+        >
+          Veuillez rentrer un nom d'utilisateur entre 3 et 40 caractères
+        </div>
       </nz-form-item>
     </form>
   </div>

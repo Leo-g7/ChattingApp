@@ -3,6 +3,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { User } from '../../user.model';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 export class UserProfileForm {
   id: string;
@@ -60,8 +61,11 @@ export class UserProfileModalComponent implements OnInit {
   isVisible: boolean = false;
   model: UserProfileForm;
 
-  constructor(private userService: UserService, private sanitizer: DomSanitizer) {
+  constructor(private userService: UserService, private sanitizer: DomSanitizer, private nzMessageService: NzMessageService) { }
 
+  isLengthValid(value: string, min: number = 0, max: number = Infinity): boolean {
+    if (!value) return false
+    return value.length >= min && value.length <= max
   }
 
   ngOnInit(): void {
@@ -73,10 +77,18 @@ export class UserProfileModalComponent implements OnInit {
   }
 
   async onOk() {
-    // TODO vérifier si le formulaire est valide
+    if (!this.isLengthValid(this.model.username, 3, 40) || !this.model.hasChanged()) {
+      return
+    }
 
-    if (this.model.hasChanged()) {
-      // TODO mettre à jour l'utilisateur via le service
+    try {
+      await this.userService.update({
+        id: this.model.id,
+        username: this.model.username,
+        photo: this.model.file
+      })
+    } catch {
+      this.nzMessageService.error("Une erreur est survenue. Veuillez réessayer plus tard");
     }
 
     this.close();
