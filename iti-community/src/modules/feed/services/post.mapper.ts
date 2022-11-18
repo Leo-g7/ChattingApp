@@ -15,7 +15,7 @@ export class PostMapper {
 
     const audioRegex = /http[s]?:\/\/.+\.(mp3|ogg|wav)/gmi;
 
-    const youtubeRegex = /(http[s]?:\/\/)?www\.(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=))|youtu\.be\/)([a-zA-Z0-9_-]{6,11})/gmi;
+    const youtubeRegex = /(http[s]?:\/\/)?www\.(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=))|youtu\.be\/)([a-zA-Z0-9_-]{6,11})/gmi;;
     const attachements: MessageElement[] = [];
 
     const pictureMatche = pictureRegex.exec(message);

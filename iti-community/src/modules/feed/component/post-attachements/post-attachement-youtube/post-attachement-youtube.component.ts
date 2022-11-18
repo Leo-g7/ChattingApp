@@ -22,5 +22,8 @@ export class PostAttachementYoutubeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.element.videoId);
+    this.element.videoId = this.element.videoId.replace('https://www.youtube.com/watch?v=', '');
+    console.log(this.element.videoId);
   }
 }
